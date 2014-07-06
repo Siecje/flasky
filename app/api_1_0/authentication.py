@@ -1,5 +1,6 @@
 from flask import g, jsonify
 from flask.ext.httpauth import HTTPBasicAuth
+from flask.ext.cors import cross_origin
 from ..models import User, AnonymousUser
 from . import api
 from .errors import unauthorized, forbidden
@@ -31,6 +32,7 @@ def auth_error():
 
 @api.before_request
 @auth.login_required
+@cross_origin(origins=['localhost'], supports_credentials=True, headers=['Content-Type'])
 def before_request():
     if not g.current_user.is_anonymous and \
             not g.current_user.confirmed:
