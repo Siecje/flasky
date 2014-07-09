@@ -32,7 +32,7 @@ def auth_error():
 
 @api.before_request
 @auth.login_required
-@cross_origin(origins=['localhost'], supports_credentials=True, headers=['Content-Type'])
+@cross_origin(origins=['*'], supports_credentials=True, headers=['Accept', 'Content-Type', 'Authorization'])
 def before_request():
     if not g.current_user.is_anonymous and \
             not g.current_user.confirmed:
